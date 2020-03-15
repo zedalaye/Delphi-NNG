@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F9CEDC00-53E0-452F-B871-CB97513C38B5}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\package\nng.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="nng.pair.test.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="nng.async.server.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="nng.async.client.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="nng">
+        <MSBuild Projects="..\package\nng.dproj"/>
+    </Target>
+    <Target Name="nng:Clean">
+        <MSBuild Projects="..\package\nng.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="nng:Make">
+        <MSBuild Projects="..\package\nng.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="nng_pair_test">
+        <MSBuild Projects="nng.pair.test.dproj"/>
+    </Target>
+    <Target Name="nng_pair_test:Clean">
+        <MSBuild Projects="nng.pair.test.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="nng_pair_test:Make">
+        <MSBuild Projects="nng.pair.test.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="nng_async_server">
+        <MSBuild Projects="nng.async.server.dproj"/>
+    </Target>
+    <Target Name="nng_async_server:Clean">
+        <MSBuild Projects="nng.async.server.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="nng_async_server:Make">
+        <MSBuild Projects="nng.async.server.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="nng_async_client">
+        <MSBuild Projects="nng.async.client.dproj"/>
+    </Target>
+    <Target Name="nng_async_client:Clean">
+        <MSBuild Projects="nng.async.client.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="nng_async_client:Make">
+        <MSBuild Projects="nng.async.client.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="nng;nng_pair_test;nng_async_server;nng_async_client"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="nng:Clean;nng_pair_test:Clean;nng_async_server:Clean;nng_async_client:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="nng:Make;nng_pair_test:Make;nng_async_server:Make;nng_async_client:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
