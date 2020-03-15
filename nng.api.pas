@@ -1,7 +1,5 @@
 unit nng.api;
 
-interface
-
 //
 // Copyright 2020 Staysail Systems, Inc. <info@staysail.tech>
 // Copyright 2018 Capitar IT Group BV <info@capitar.com>
@@ -12,11 +10,15 @@ interface
 // found online at https://opensource.org/licenses/MIT.
 //
 
+// Delphi bindings ®2020 by Pierre Yager <pierre.y@gmail.com>
+
 // NNG (nanomsg-next-gen) is an improved implementation of the SP protocols.
 // The APIs have changed, and there is no attempt to provide API compatibility
 // with legacy libnanomsg. This file defines the library consumer-facing
 // Public API. Use of definitions or declarations not found in this header
 // file is specifically unsupported and strongly discouraged.
+
+interface
 
 // NNG Library & API version.
 // We use SemVer, and these versions are about the API, and
