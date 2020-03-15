@@ -1,0 +1,50 @@
+package nng;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl;
+
+contains
+  nng.api in '..\nng.api.pas',
+  nng.api.protocol.bus0 in '..\nng.api.protocol.bus0.pas',
+  nng.api.protocol.pair0 in '..\nng.api.protocol.pair0.pas',
+  nng.api.protocol.pair1 in '..\nng.api.protocol.pair1.pas',
+  nng.api.protocol.pipeline0.pull in '..\nng.api.protocol.pipeline0.pull.pas',
+  nng.api.protocol.pipeline0.push in '..\nng.api.protocol.pipeline0.push.pas',
+  nng.api.protocol.pubsub0.pub in '..\nng.api.protocol.pubsub0.pub.pas',
+  nng.api.protocol.pubsub0.sub in '..\nng.api.protocol.pubsub0.sub.pas',
+  nng.api.protocol.reqrep0.rep in '..\nng.api.protocol.reqrep0.rep.pas',
+  nng.api.protocol.reqrep0.req in '..\nng.api.protocol.reqrep0.req.pas',
+  nng.api.protocol.survey0.respond in '..\nng.api.protocol.survey0.respond.pas',
+  nng.api.protocol.survey0.survey in '..\nng.api.protocol.survey0.survey.pas',
+  nng.api.transport in '..\nng.api.transport.pas',
+  nng.api.utils in '..\nng.api.utils.pas',
+  nng.api.http in '..\nng.api.http.pas';
+
+end.
