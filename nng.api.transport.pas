@@ -15,7 +15,8 @@ unit nng.api.transport;
 interface
 
 uses
-  nng.api;
+  nng.api.types,
+  nng.api.constants;
 
 // inproc transport.  This is used for intra-process communication.
 

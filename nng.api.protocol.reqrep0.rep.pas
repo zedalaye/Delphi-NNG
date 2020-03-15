@@ -15,7 +15,8 @@ unit nng.api.protocol.reqrep0.rep;
 interface
 
 uses
-  nng.api;
+  nng.api.types,
+  nng.api.constants;
 
 function nng_rep0_open(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;
 function nng_rep0_open_raw(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;

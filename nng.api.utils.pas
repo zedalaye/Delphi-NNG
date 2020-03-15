@@ -15,7 +15,7 @@ unit nng.api.utils;
 interface
 
 uses
-  nng.api;
+  nng.api.types, nng.api.constants;
 
 // This is a relatively simple "options parsing" library, used to
 // parse command line options.  We would use getopt(3), but there are
@@ -23,15 +23,6 @@ uses
 // platforms (especially Win32), and second, it doesn't support long
 // options.  We *exclusively* support long options.  POSIX style
 // short option clustering is *NOT* supported.
-
-type
-  Pnng_optspec = ^Tnng_optspec;
-  Tnng_optspec = record
-    o_name: PAnsiChar;  // Long style name (may be NULL for short only)
-    o_short: Integer;   // Short option (no clustering!)
-    o_val: Integer;     // Value stored on a good parse (>0)
-    o_arg: Boolean;     // Option takes an argument if true
-  end;
 
 // Call with *optidx set to 1 to start parsing for a standard program.
 // The val will store the value of the matched "o_val", optarg will be

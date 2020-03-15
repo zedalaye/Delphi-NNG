@@ -92,6 +92,10 @@
         <DCCReference Include="..\nng.api.transport.pas"/>
         <DCCReference Include="..\nng.api.utils.pas"/>
         <DCCReference Include="..\nng.api.http.pas"/>
+        <DCCReference Include="..\nng.api.tls.pas"/>
+        <DCCReference Include="..\nng.api.types.pas"/>
+        <DCCReference Include="..\nng.api.constants.pas"/>
+        <DCCReference Include="..\nng.api.tls.engine.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

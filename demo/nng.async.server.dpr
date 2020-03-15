@@ -9,7 +9,9 @@ uses
   System.SysUtils,
   nng.api in '..\nng.api.pas',
   nng.api.protocol.reqrep0.rep in '..\nng.api.protocol.reqrep0.rep.pas',
-  nng.api.utils in '..\nng.api.utils.pas';
+  nng.api.utils in '..\nng.api.utils.pas',
+  nng.api.constants in '..\nng.api.constants.pas',
+  nng.api.types in '..\nng.api.types.pas';
 
 const
   PARALLEL = 128;
@@ -119,6 +121,7 @@ var
   works: array[0..PARALLEL - 1] of PWork;
   rv: Integer;
   t1, t2: Cardinal;
+  I: Integer;
 begin
   t1 := GetTickCount;
 
@@ -127,15 +130,15 @@ begin
 	if (rv <> 0) then
     fatal('nng_rep0_open', rv);
 
-	for var i := 0 to PARALLEL - 1 do
-    works[i] := alloc_work(sock);
+	for I := 0 to PARALLEL - 1 do
+    works[I] := alloc_work(sock);
 
   rv := nng_listen(sock, PAnsiChar(AnsiString(url)), nil, 0);
   if rv <> 0 then
     fatal('nng_listen', rv);
 
-  for var i := 0 to PARALLEL - 1 do
-    server_cb(works[i]);
+  for I := 0 to PARALLEL - 1 do
+    server_cb(works[I]);
 
   t2 := GetTickCount;
   WriteLn(Format('Ready, app boot took %d milliseconds.', [t2 - t1]));
@@ -144,11 +147,14 @@ begin
     nng_msleep(3600000);
 end;
 
+var
+  rc: Integer;
+
 begin
   try
     if ParamCount = 1 then
     begin
-      var rc := server(ParamStr(1));
+      rc := server(ParamStr(1));
       if rc <> 0 then
         ExitCode := 1;
     end

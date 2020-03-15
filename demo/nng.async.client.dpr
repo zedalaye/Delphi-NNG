@@ -9,7 +9,9 @@ uses
   System.SysUtils,
   nng.api in '..\nng.api.pas',
   nng.api.protocol.reqrep0.req in '..\nng.api.protocol.reqrep0.req.pas',
-  nng.api.utils in '..\nng.api.utils.pas';
+  nng.api.utils in '..\nng.api.utils.pas',
+  nng.api.constants in '..\nng.api.constants.pas',
+  nng.api.types in '..\nng.api.types.pas';
 
 procedure fatal(const method: string; error_code: Integer);
 begin
@@ -66,11 +68,14 @@ begin
   Result := 0;
 end;
 
+var
+  rc: Integer;
+
 begin
   try
     if ParamCount = 2 then
     begin
-      var rc := client(ParamStr(1), ParamStr(2));
+      rc := client(ParamStr(1), ParamStr(2));
       if rc <> 0 then
         ExitCode := 1;
     end

@@ -7,12 +7,14 @@ program nng.pair.test;
 uses
   System.SysUtils,
   nng.api in '..\nng.api.pas',
-  nng.api.protocol.pair1 in '..\nng.api.protocol.pair1.pas';
+  nng.api.protocol.pair1 in '..\nng.api.protocol.pair1.pas',
+  nng.api.constants in '..\nng.api.constants.pas',
+  nng.api.types in '..\nng.api.types.pas';
 
 var
   S1, S2: Tnng_socket;
   M: Pnng_msg;
-
+  I: Integer;
 begin
   try
     nng_pair_open(S1);
@@ -21,7 +23,7 @@ begin
     nng_listen(S1, 'tcp://localhost:5555', nil, 0);
     nng_dial(S2, 'tcp://localhost:5555', nil, Ord(NNG_FLAG_NONBLOCK));
 
-    for var I := 0 to 10000 do
+    for I := 0 to 10000 do
     begin
       Write('.');
       nng_msg_alloc(M, 0);

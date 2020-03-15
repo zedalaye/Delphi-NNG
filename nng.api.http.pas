@@ -16,80 +16,8 @@ unit nng.api.http;
 interface
 
 uses
-  nng.api;
-
-type
-  Pnng_tls_config = ^Tnng_tls_config;
-  Tnng_tls_config = record
-  end;
-
-// HTTP status codes.  This list is not exhaustive.
-  Tnng_http_status = (
-    NNG_HTTP_STATUS_CONTINUE                 = 100,
-    NNG_HTTP_STATUS_SWITCHING                = 101,
-    NNG_HTTP_STATUS_PROCESSING               = 102,
-    NNG_HTTP_STATUS_OK                       = 200,
-    NNG_HTTP_STATUS_CREATED                  = 201,
-    NNG_HTTP_STATUS_ACCEPTED                 = 202,
-    NNG_HTTP_STATUS_NOT_AUTHORITATIVE        = 203,
-    NNG_HTTP_STATUS_NO_CONTENT               = 204,
-    NNG_HTTP_STATUS_RESET_CONTENT            = 205,
-    NNG_HTTP_STATUS_PARTIAL_CONTENT          = 206,
-    NNG_HTTP_STATUS_MULTI_STATUS             = 207,
-    NNG_HTTP_STATUS_ALREADY_REPORTED         = 208,
-    NNG_HTTP_STATUS_IM_USED                  = 226,
-    NNG_HTTP_STATUS_MULTIPLE_CHOICES         = 300,
-    NNG_HTTP_STATUS_STATUS_MOVED_PERMANENTLY = 301,
-    NNG_HTTP_STATUS_FOUND                    = 302,
-    NNG_HTTP_STATUS_SEE_OTHER                = 303,
-    NNG_HTTP_STATUS_NOT_MODIFIED             = 304,
-    NNG_HTTP_STATUS_USE_PROXY                = 305,
-    NNG_HTTP_STATUS_TEMPORARY_REDIRECT       = 307,
-    NNG_HTTP_STATUS_PERMANENT_REDIRECT       = 308,
-    NNG_HTTP_STATUS_BAD_REQUEST              = 400,
-    NNG_HTTP_STATUS_UNAUTHORIZED             = 401,
-    NNG_HTTP_STATUS_PAYMENT_REQUIRED         = 402,
-    NNG_HTTP_STATUS_FORBIDDEN                = 403,
-    NNG_HTTP_STATUS_NOT_FOUND                = 404,
-    NNG_HTTP_STATUS_METHOD_NOT_ALLOWED       = 405,
-    NNG_HTTP_STATUS_NOT_ACCEPTABLE           = 406,
-    NNG_HTTP_STATUS_PROXY_AUTH_REQUIRED      = 407,
-    NNG_HTTP_STATUS_REQUEST_TIMEOUT          = 408,
-    NNG_HTTP_STATUS_CONFLICT                 = 409,
-    NNG_HTTP_STATUS_GONE                     = 410,
-    NNG_HTTP_STATUS_LENGTH_REQUIRED          = 411,
-    NNG_HTTP_STATUS_PRECONDITION_FAILED      = 412,
-    NNG_HTTP_STATUS_PAYLOAD_TOO_LARGE        = 413,
-    NNG_HTTP_STATUS_ENTITY_TOO_LONG          = 414,
-    NNG_HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE   = 415,
-    NNG_HTTP_STATUS_RANGE_NOT_SATISFIABLE    = 416,
-    NNG_HTTP_STATUS_EXPECTATION_FAILED       = 417,
-    NNG_HTTP_STATUS_TEAPOT                   = 418,
-    NNG_HTTP_STATUS_UNPROCESSABLE_ENTITY     = 422,
-    NNG_HTTP_STATUS_LOCKED                   = 423,
-    NNG_HTTP_STATUS_FAILED_DEPENDENCY        = 424,
-    NNG_HTTP_STATUS_UPGRADE_REQUIRED         = 426,
-    NNG_HTTP_STATUS_PRECONDITION_REQUIRED    = 428,
-    NNG_HTTP_STATUS_TOO_MANY_REQUESTS        = 429,
-    NNG_HTTP_STATUS_HEADERS_TOO_LARGE        = 431,
-    NNG_HTTP_STATUS_UNAVAIL_LEGAL_REASONS    = 451,
-    NNG_HTTP_STATUS_INTERNAL_SERVER_ERROR    = 500,
-    NNG_HTTP_STATUS_NOT_IMPLEMENTED          = 501,
-    NNG_HTTP_STATUS_BAD_GATEWAY              = 502,
-    NNG_HTTP_STATUS_SERVICE_UNAVAILABLE      = 503,
-    NNG_HTTP_STATUS_GATEWAY_TIMEOUT          = 504,
-    NNG_HTTP_STATUS_HTTP_VERSION_NOT_SUPP    = 505,
-    NNG_HTTP_STATUS_VARIANT_ALSO_NEGOTIATES  = 506,
-    NNG_HTTP_STATUS_INSUFFICIENT_STORAGE     = 507,
-    NNG_HTTP_STATUS_LOOP_DETECTED            = 508,
-    NNG_HTTP_STATUS_NOT_EXTENDED             = 510,
-    NNG_HTTP_STATUS_NETWORK_AUTH_REQUIRED    = 511
-  );
-
-// nng_http_req represents an HTTP request.
-  Pnng_http_req = ^Tnng_http_req;
-  Tnng_http_req = record
-  end;
+  nng.api.types,
+  nng.api.constants;
 
 // nng_http_req_alloc creates a vanilla HTTP request object.  The object is
 // initialized with the given URL object for an HTTP/1.1 GET request by
@@ -157,12 +85,6 @@ function nng_http_req_copy_data(req: Pnng_http_req; const data: Pointer; sz: Nat
 // nng_http_req_get_data gets the data for the response.
 procedure nng_http_req_get_data(req: Pnng_http_req; var data: Pointer; var sz: NativeUInt); cdecl; external NNG_LIB;
 
-// nng_http_res represents an HTTP response.
-type
-  Pnng_http_res = ^Tnng_http_res;
-  Tnng_http_res = record
-  end;
-
 // nng_http_res_alloc creates a vanilla HTTP response object.  The object is
 // initialized for an HTTP/1.1 200 OK response by default.
 function nng_http_res_alloc(var res: Pnng_http_res): Integer; cdecl; external NNG_LIB;
@@ -227,14 +149,6 @@ function nng_http_res_set_data(res: Pnng_http_res; const data: Pointer; sz: Nati
 // probably set the content-type header.
 function nng_http_res_copy_data(res: Pnng_http_res; const data: Pointer; sz: NativeUInt): Integer; cdecl; external NNG_LIB;
 
-// An nng_http_conn represents an underlying "connection".  It may be
-// a TCP channel, or a TLS channel, but the main thing is that this is
-// normally only used for exchanging HTTP requests and responses.
-type
-  Pnng_http_conn = ^Tnng_http_conn;
-  Tnng_http_conn = record
-  end;
-
 // nng_http_conn_close closes the underlying channel.  Applications should
 // not use this channel after this operation is performed.
 procedure nng_http_conn_close(conn: Pnng_http_conn); cdecl; external NNG_LIB;
@@ -280,13 +194,6 @@ procedure nng_http_req_reset(req: Pnng_http_req); cdecl; external NNG_LIB;
 
 // nng_http_res_reset resets the response to an initially allocated state.
 procedure nng_http_res_reset(res: Pnng_http_res); cdecl; external NNG_LIB;
-
-// nng_http_handler is a handler used on the server side to handle HTTP
-// requests coming into a specific URL.
-type
-  Pnng_http_handler = ^Tnng_http_handler;
-  Tnng_http_handler = record
-  end;
 
 // nng_http_handler_alloc creates a server handler object, for the supplied
 // absolute URI (path only) with the callback.  By default the handler
@@ -392,14 +299,6 @@ function nng_http_handler_set_data(handler: Pnng_http_handler; arg: Pointer; fn:
 // nng_http_handler_get_data returns the data that was previously stored.
 function nng_http_handler_get_data(handler: Pnng_http_handler): Pointer; cdecl; external NNG_LIB;
 
-// nng_http_server is a handle to an HTTP server instance.  Servers
-// only serve a single port / address at this time.
-
-type
-  Pnng_http_server = ^Tnng_http_server;
-  Tnng_http_server = record
-  end;
-
 // nng_http_server_hold gets a server structure, using the address determined
 // from the URL.  If a server already exists, then a hold is placed on it, and
 // that instance is returned.  If no such server exists, then a new instance
@@ -482,16 +381,7 @@ function nng_http_server_res_error(server: Pnng_http_server; res: Pnng_http_res)
 // when a session is hijacked, the caller is also responsible for disposing
 // of the request structure.  (Some hijackers may keep the request for
 // further processing.)
-
 function nng_http_hijack(conn: Pnng_http_conn): Integer; cdecl; external NNG_LIB;
-
-// nng_http_client represents a "client" object.  Clients can be used
-// to create HTTP connections.  At present, connections are not cached
-// or reused, but that could change in the future.
-type
-  Pnng_http_client = ^Tnng_http_client;
-  Tnng_http_client = record
-  end;
 
 // nng_http_client_alloc allocates a client object, associated with
 // the given URL.

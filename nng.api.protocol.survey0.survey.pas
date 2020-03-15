@@ -15,7 +15,8 @@ unit nng.api.protocol.survey0.survey;
 interface
 
 uses
-  nng.api;
+  nng.api.types,
+  nng.api.constants;
 
 function nng_surveyor0_open(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;
 function nng_surveyor0_open_raw(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;

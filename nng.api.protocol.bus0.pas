@@ -15,7 +15,8 @@ unit nng.api.protocol.bus0;
 interface
 
 uses
-  nng.api;
+  nng.api.types,
+  nng.api.constants;
 
 function nng_bus0_open(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;
 function nng_bus0_open_raw(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;

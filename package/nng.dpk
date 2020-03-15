@@ -45,6 +45,10 @@ contains
   nng.api.protocol.survey0.survey in '..\nng.api.protocol.survey0.survey.pas',
   nng.api.transport in '..\nng.api.transport.pas',
   nng.api.utils in '..\nng.api.utils.pas',
-  nng.api.http in '..\nng.api.http.pas';
+  nng.api.http in '..\nng.api.http.pas',
+  nng.api.tls in '..\nng.api.tls.pas',
+  nng.api.types in '..\nng.api.types.pas',
+  nng.api.constants in '..\nng.api.constants.pas',
+  nng.api.tls.engine in '..\nng.api.tls.engine.pas';
 
 end.

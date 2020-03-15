@@ -15,7 +15,8 @@ unit nng.api.protocol.pipeline0.pull;
 interface
 
 uses
-  nng.api;
+  nng.api.types,
+  nng.api.constants;
 
 function nng_pull0_open(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;
 function nng_pull0_open_raw(var s: Tnng_socket): Integer; cdecl; external NNG_LIB;
