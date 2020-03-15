@@ -1,4 +1,4 @@
-program nng.test;
+program nng.pair.test;
 
 {$APPTYPE CONSOLE}
 
